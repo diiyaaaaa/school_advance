@@ -1,0 +1,83 @@
+User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="{% url "admin_dash" %}">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+
+        {% include "admin_sidebar.html" %}
+
+            <div id="layoutSidenav_content">
+                <main>
+
+                  <div class='p-5'>
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+                    <form method="post" class="col-6 mx-auto card p-3 my-4 m-2 shadow-dr" enctype='multipart/form-data'>
+                    <h4> Update Teacher </h4>
+    {% csrf_token %}
+    <hr>
+                    <div>
+  <label>select medium:</label>
+
+    <input type="radio" id="medium"  name="medium" value="English">
+    <label for="medium">English</label>
+    <input type="radio" id="medium" name="medium" value="Gujarati">
+    <label for="medium">Gujarati</label><br>  
+ 
+</div>
+
+<div>
+select class:
+<select name='class' class="form-control">
+{%for i in cls%}
+<option value='{{i.id}}'>{{i.c_name}}</option>
+{%endfor%}
+</select>
+</div> 
+
+<div>
+select teacher:
+<select name='te' class="form-control">
+{%for i in teacher%}
+<option value='{{i.id}}'>{{i.fname}} {{i.lname}} {{i.email}}</option>
+{%endfor%}
+</select>
+</div> 
+  <input class="btn btn-success m-3" type="submit" value="Update Class Teacher" name="submit">  
+</form>
+    
+                  </div>
+                </main>
+            </div>
+
+    </body>
+</html>

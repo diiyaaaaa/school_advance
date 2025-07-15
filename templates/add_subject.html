@@ -1,0 +1,152 @@
+<html>
+<head>
+ <title>Subject</title>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+  <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+
+{% include "admin_sidebar.html" %}
+
+            <div id="layoutSidenav_content">
+                <main>
+<div class="container p-5" style="margin-rightft:50%">
+
+
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+
+
+
+<form method="post" class="col-6 mx-auto card p-3 shadow-lg" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <h1> Add Subject</h1>
+    <hr>
+    
+    <div>
+      <label>Enter Subject name:</label>
+      <input type="text" name="sub" class="form-control" id="subjectInput">
+      <div id="subjectError" style="color: red; display: none;">Subject name must be at least 2 characters long.</div>
+  </div>
+  
+  <script>
+      // Add event listener to the input field
+      document.getElementById('subjectInput').addEventListener('input', function() {
+          var subjectInput = document.getElementById('subjectInput').value;
+          var subjectError = document.getElementById('subjectError');
+  
+          // Check if the input value length is less than 2 characters
+          if (subjectInput.length < 2) {
+              subjectError.style.display = 'block'; // Display error message
+          } else {
+              subjectError.style.display = 'none'; // Hide error message
+          }
+      });
+  </script>
+  
+
+                    <div> Select Medium: 
+                        <select name='medium' class="form-control"> 
+                            <option>English</option> 
+                            <option>Gujarati</option> 
+                          </select>
+                    </div>
+
+                        <div>  Select Class: 
+                          <select name='class' class="form-control"> 
+                            {%for i in cls%} 
+                            <option value='{{i.id}}'>{{i.c_name}}</option> 
+                            {%endfor%} 
+                          </select> 
+                        </div>
+                       <input class='btn btn-primary' type="submit" value="Add Subject" name="submit" style="margin-top: 10px; width: 50%; margin-left: 25%;">
+
+</form>
+<h1 style="text-align: center; margin-bottom: 25px; margin-top: 35px;"> Subject Details: </h2>
+
+<table style="border: 1px solid black; margin: auto; " class="table table-striped">
+                        <tr style="background-color: #000000; color: #FFFFFF;">
+                            <thead class="thead-dark">
+                        <th> Sr No. </th>
+                        <th> Subject Name </th>
+                        <th> Medium Name </th>
+                        <th> Class Name </th>
+                        <th> Action</th>
+                        </thead>
+
+                     
+
+   </tr>
+
+                        {% for i in sub%}
+                        <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.sub_name}}</td>
+                        <td>{{i.medium_name}}</td>
+                        <td>{{i.cls_name}}</td>
+                        <td>
+ <a href='/update_subject/{{i.id}}' class='btn btn-success'>Edit </a>
+ <a href='/delete_subject/{{i.id}}' class='btn btn-danger'>Delete </a>
+ </td>
+                        </tr>
+                        {%endfor%}
+                        </table>
+
+                         <div class="pagination">
+
+                                               <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    
+          {% if sub.has_previous %}
+            <li class="page-item"><a href="?page=1" class="page-link">&laquo; first</a><li>
+            <li class="page-item"><a href="?page={{ sub.previous_page_number }}" class="page-link">previous</a></li>
+        {% endif %}
+
+        
+            Page {{ sub.number }} of {{ sub.paginator.num_pages }}.
+       
+
+        {% if sub.has_next %}
+           <li class="page-item"> <a href="?page={{ sub.next_page_number }}" class="page-link">next</a> </li>
+          <li class="page-item"><a href="?page={{ sub.paginator.num_pages }}" class="page-link">last &raquo;</a> </li>
+        {% endif %}
+   
+    </ul>
+    </nav>
+
+
+</div>
+
+</main>
+</div>
+
+</body>
+</html>

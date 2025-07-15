@@ -1,0 +1,65 @@
+def create_user(request):
+    all_user=User.objects.exclude(username="admin")
+    paginator = Paginator(all_user, 8)  
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    if request.POST.get('search'):
+        search=request.POST.get('search')
+        page_obj=all_user.filter(
+            Q(first_name__icontains=search) |
+            Q(last_name__icontains=search) |
+            Q(username__icontains=search) |
+            Q(email__icontains=search) 
+        )
+        data={'all_user':page_obj}
+        return render(request,'create_user.html',data)
+
+
+    if request.method=='POST':
+        if request.POST.get('parent'):
+         parent=Parent.objects.all()
+         for i in parent:
+            fname=i.fname
+            lname=i.lname
+            email=i.email
+            phone=i.phone_no
+            existing_user=User.objects.filter(username=email).first()
+
+            if existing_user:
+                continue
+
+            hass_pass=make_password(phone)
+            p_user=User.objects.create(username=email,password=hass_pass,email=email,first_name=fname,last_name=lname)
+            p_user.groups.add(Group.objects.get(name='parent'))
+            x=Parent_user.objects.create(parent_user=p_user)
+            x.save()
+
+            i.p_user=x
+            i.save()
+        
+        
+        elif request.POST.get('teacher'):
+            teacher=Teacher.objects.all()
+            
+            for i in teacher:
+                email=i.email
+                phone=i.phone_no
+                fname=i.fname
+                lname=i.lname
+                existing_user=User.objects.filter(username=email).first()
+
+                if existing_user:
+                    continue
+                hase_password=make_password(phone)
+                t_user=User.objects.create(username=email,password=hase_password,email=email,first_name=fname,last_name=lname)
+                t_user.groups.add(Group.objects.get(name='teacher'))
+                x=Teacher_user.objects.create(teacher_user=t_user)
+                x.save()
+
+                i.t_user=x
+                i.save()
+
+    data={'all_user':page_obj}
+    return render(request,'create_user.html',data)
+

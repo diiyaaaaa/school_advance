@@ -1,0 +1,96 @@
+<html>
+ <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link href="/static/css/dash_styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    
+<body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="{% url "parent_dash"%}">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+       <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+               
+            <div>
+                 <a href='/' class='btn btn-outline-light'>Logout</a>
+                </div>
+            <!-- Navbar-->
+            </form>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+
+<div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                     <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Parent Side</div>
+
+                    
+                              <a class="nav-link" href="{% url 'parent_view_student'%}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                View Student
+
+
+                                <a class="nav-link" href="{% url 'parent_view_attendance'%}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                    View Attendance
+                                </a>
+
+                                    <a class="nav-link" href="{% url 'parent_view_marks'%}">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                        View Marks
+                                    </a>
+
+                                        <a class="nav-link" href="{% url 'parent_view_timetable'%}">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                            View Time - Table
+                                        </a>
+
+                                          <a class="nav-link" href="{% url 'parent_view_ptm'%}">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                            View PTM
+                                        </a>
+
+                                          <a class="nav-link" href="{% url 'parent_view_curriculum'%}">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                            View Curriculum
+                                        </a>
+
+                                        <a class="nav-link" href="{% url 'progress_chart'%}">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                            View Progress
+                                        </a>
+
+                                         <a class="nav-link" href="{% url 'quiz'%}">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                            Play Quiz
+                                        </a>
+
+                                        <a class="nav-link" href="{% url 'parent_add_details'%}">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                        Profile Details
+                                        </a>
+
+                                    
+                        </div>
+                    </div>
+                </nav>
+            </div>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/static/js/dassh_scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="assets/demo/chart-pie-demo.js"></script>        
+</body>
+</html>

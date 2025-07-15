@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* Add your custom CSS styles here */
+        /* Example CSS for table */
+
+        .text{
+            text-align: center;
+            font-size: 17px; /* Adjust font size as needed */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+                .header img {
+            width: 720px; /* Adjust as needed */
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <div class="header">
+        <img src="{{ school_logo }}" alt="School Logo">
+    </div>
+        <h1 class="text"> {{ title }} </h1>
+        <p class="text">Date: {{ current_datetime }}</p>
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Student</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Class</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Medium</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Semester</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Subject</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Marks Obtained</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Total Marks Obtained</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Total Marks</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Exam Date</th>
+                    <th style="border: 1px solid black; padding: 8px; text-align: center; background-color: #f2f2f2; font-size: 14px;">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student_mark in student_marks %}
+                    {% for semester, semester_data in student_mark.semesters.items %}
+                        {% for mark in semester_data.marks %}
+                            <tr>
+                                {% if forloop.first %}
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ student_mark.student.fname }} {{ student_mark.student.lname }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ student_mark.class }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ student_mark.medium }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ semester }}</td>
+                                {% endif %}
+                                <td style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ mark.subject }}</td>
+                                <td style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ mark.marks_obtained }}</td>
+                                {% if forloop.first %}
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ semester_data.total_marks_obtained }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ semester_data.total_marks }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ mark.exam_date }}</td>
+                                    <td rowspan="{{ semester_data.marks|length }}" style="border: 1px solid black; padding: 8px; text-align: center; font-size: 12px;">{{ mark.grade }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</body>
+</html>

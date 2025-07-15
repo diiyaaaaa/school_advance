@@ -1,0 +1,140 @@
+<html>
+<head>
+ <title>Users</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+  <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+
+{% include "admin_sidebar.html" %}
+
+            <div id="layoutSidenav_content">
+                <main>
+<div class="container p-5" style="margin-rightft:50%">
+                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="{% url 'add_parent'%}" class='btn btn-outline-secondary' >Add Parent </a>
+<a href="{% url 'add_teacher'%}" class='btn btn-outline-secondary'>Add Teacher </a>
+<a href="{% url 'view_parent_teacher'%}" class='btn btn-outline-secondary'>View Parent & Teacher </a>
+<br><br>
+ 
+               
+ <form method="post" class="col-4 mx-auto  my-1 p-3 shadow-lg m-3" style="display: flex; flex-direction: column;  width: 125%;">
+    {% csrf_token %}
+    <input class="btn btn-outline-success mb-2" type="submit" name='parent' value="Create All Parent Accounts" style="width: 80%; margin-left: 12.5%; color: black">
+    <input class="btn btn-outline-success" type="submit" name='teacher' value="Create All Teacher Accounts" style="width: 80%; margin-left: 12.5%; color: black;">
+</form> 
+<br><br>
+
+<div>
+<form method="post">
+    {% csrf_token %}
+    <select name="group">
+        <option value="all" {% if selected_group == 'all' %}selected{% endif %}>All</option>
+        <option value="parent" {% if selected_group == 'parent' %}selected{% endif %}>Parent</option>
+        <option value="teacher" {% if selected_group == 'teacher' %}selected{% endif %}>Teacher</option>
+    </select>
+    <!-- Your other form elements -->
+    <input type="submit" value="Filter">
+</form>
+
+</div>
+<div class='my-4'>
+    <form method='post'>
+                    {% csrf_token %}
+      <div class='col md-4' style="display: flex; align-items: center;"> 
+    <input type='search' class='form-control' name='search' placeholder="Search" style="width: 33%; margin-left: -1%;">
+    &nbsp;
+    <button class='btn btn-outline-success'>Search</button>
+    </div>
+    </form>
+    </div>
+                  
+                       <table style="border: 1px solid black; margin: auto; " class="table table-striped"> 
+                        <tr style="background-color: #000000; color: #FFFFFF;"> 
+                            <thead class="thead-dark"> 
+                        <th> Sr No. </th> 
+                        <th> Username </th> 
+                        <th> Firstname </th> 
+                        <th> Lastname </th>
+                        <th> Email </th> 
+                        <th> Group </th> 
+                        <th> Action </th> 
+                        </tr> 
+                    </thead> 
+ 
+                     
+                        {%for i in all_user%} 
+                        <tr> 
+                        <td> {{forloop.counter}}</td> 
+                        <td> {{i.username}} </td> 
+                        <td> {{i.first_name}} </td> 
+                    <td> {{i.last_name}} </td>
+       
+                        <td> {{i.email}} </td> 
+                        <td> 
+                            {% for group in i.groups.all %} 
+                                {{ group.name }} 
+                                {% if not forloop.last %}, {% endif %} 
+                            {% endfor %} 
+                        </td> 
+                        <td> <a href="/delete_user/{{i.id}}" class='btn btn-danger'>Delete</a></td> 
+                        </tr> 
+                        {%endfor%} 
+                        </table>
+                                     <div class="pagination">
+
+                                               <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    
+          {% if all_user.has_previous %}
+            <li class="page-item"><a href="?page=1" class="page-link">&laquo; first</a><li>
+            <li class="page-item"><a href="?page={{ all_user.previous_page_number }}" class="page-link">previous</a></li>
+        {% endif %}
+
+        
+            Page {{ all_user.number }} of {{ all_user.paginator.num_pages }}.
+       
+
+        {% if all_user.has_next %}
+           <li class="page-item"> <a href="?page={{ all_user.next_page_number }}" class="page-link">next</a> </li>
+          <li class="page-item"><a href="?page={{ all_user.paginator.num_pages }}" class="page-link">last &raquo;</a> </li>
+        {% endif %}
+   
+    </ul>
+    </nav>
+
+    </div>
+
+
+</main>
+</div>
+</body>
+</html>

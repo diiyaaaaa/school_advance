@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+ 
+{% block content %} 
+<h1 class="heading">our <span>gallery</span></h1> 
+ 
+<div style="text-align: center; padding: 20px; border: 1px solid #ccc; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"> 
+ 
+    <div class="heading"> 
+        <div>
+            <h1 style="margin-bottom: 40px; margin-top: 0px; text-align: center;">Our Gallery</h1> 
+           
+        </div> 
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">  
+            {% for i in qry %} 
+            <div class="responsive" style="flex-basis: calc(33.333% - 20px); box-sizing: border-box;"> 
+                <div class="gallery" style="border: 1px solid #ccc; border-radius: 5px; overflow: hidden; box-shadow: 0 0 8px rgba(0,0,0,0.1);"> 
+                    <a target="_blank" href="/media/{{i.img}}"> 
+                        <img src="/media/{{i.img}}" alt="Gallery Image" style="height: 275px; width: 100%; object-fit: cover;"> 
+                    </a> 
+                </div> 
+            </div> 
+            {% endfor %} 
+        </div> 
+    </div> 
+</div>
+{% endblock content %}

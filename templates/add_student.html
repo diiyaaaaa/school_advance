@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+</svg>       
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="{% url "admin_dash"%}">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+
+        {% include "admin_sidebar.html" %}
+
+            <div id="layoutSidenav_content">
+                <main>
+                <div class='p-5'>
+
+  <div class="alert alert-warning" role="alert">
+    <strong> {% if messages %}
+      <ul class="messages">
+     {% for message in messages %}
+       <li>{{ message }}</li>
+     {% endfor %}
+       </ul>
+      {% endif %}</strong> 
+  </div>
+
+
+<form method="post" class="col-6 mx-auto card p-3 my-4 m-2 shadow-lg" enctype='multipart/form-data'>
+    {% csrf_token %}
+
+ <h2> Add Student </h2>
+
+<hr>
+<div>
+ <label >Student Image:</label>
+<input type="file" class="form-control"  name="img"required>
+</div>
+  
+<div>
+  <label>Enter Roll No:</label>
+  <input type="text" class="form-control" name="rollno" required oninput="validateRollNo(event)">
+  <div id="rollNoError" style="color: red; display: none;">Please Enter Valid Roll Number.</div>
+</div>
+
+<script>
+  function validateRollNo(event) {
+      var rollnoInput = event.target;
+      var rollnoError = document.getElementById("rollNoError");
+      var rollnoValue = parseInt(rollnoInput.value);
+
+      if (isNaN(rollnoValue) || rollnoValue <= 0) {
+          rollnoError.style.display = "block";
+      } else {
+          rollnoError.style.display = "none";
+      }
+  }
+</script>
+
+
+
+<div>
+  <label>Enter First name:</label>
+  <input type="text" class="form-control" id="firstNameInput" name="fname" value='{{qry.fname}}' required>
+  <div id="firstNameError" style="color: red; display: none;">First name must be at least 2 characters long.</div>
+</div>
+
+<div>
+  <label>Enter Last name:</label>
+  <input type="text" class="form-control" id="lastNameInput" name="lname" value='{{qry.lname}}' required>
+  <div id="lastNameError" style="color: red; display: none;">Last name must be at least 2 characters long.</div>
+</div>
+
+<script>
+  // Function to validate first name and last name
+  function validateNames() {
+    var firstName = document.getElementById('firstNameInput').value.trim();
+    var lastName = document.getElementById('lastNameInput').value.trim();
+
+    // Error message elements
+    var firstNameError = document.getElementById('firstNameError');
+    var lastNameError = document.getElementById('lastNameError');
+
+    // Remove any existing error messages
+    firstNameError.textContent = '';
+    lastNameError.textContent = '';
+
+    // Validate first name
+    if (firstName.length < 2) {
+      firstNameError.textContent = 'First name must be at least 2 characters long.';
+      firstNameError.style.display = 'block'; // Show the error message
+      return false;
+    } else {
+      firstNameError.style.display = 'none'; // Hide the error message if valid
+    }
+
+    // Validate last name
+    if (lastName.length < 2) {
+      lastNameError.textContent = 'Last name must be at least 2 characters long.';
+      lastNameError.style.display = 'block'; // Show the error message
+      return false;
+    } else {
+      lastNameError.style.display = 'none'; // Hide the error message if valid
+    }
+
+    return true;
+  }
+
+  // Add event listener to validate names on input change
+  document.getElementById('firstNameInput').addEventListener('input', function() {
+    validateNames();
+  });
+
+  document.getElementById('lastNameInput').addEventListener('input', function() {
+    validateNames();
+  });
+</script>
+
+
+
+  <div>
+    <label>Enter Enrollment date:</label>
+    <input type="date" class="form-control" name="e_date" id="enrollmentDateInput" required>
+</div>
+
+<script>
+    // Get today's date
+    var today = new Date();
+
+    // Format today's date to YYYY-MM-DD
+    var formattedDate = today.toISOString().split('T')[0];
+
+    // Set the max attribute of the input field to today's date
+    document.getElementById('enrollmentDateInput').setAttribute('max', formattedDate);
+</script>
+
+
+<div>
+  <label>Enter Birth date:</label>
+  <input type="date" class="form-control" name="stu_dob" id="birthDateInput" required>
+</div>
+
+<script>
+  // Get today's date
+  var today = new Date();
+
+  // Calculate the date exactly 4 years ago
+  var pastDate = new Date();
+  pastDate.setFullYear(pastDate.getFullYear() - 4);
+
+  // Format dates to YYYY-MM-DD
+  var formattedToday = today.toISOString().split('T')[0];
+  var formattedPastDate = pastDate.toISOString().split('T')[0];
+
+  // Set the max attribute to one day less than today's date and min attribute to exactly 4 years ago
+  today.setDate(today.getDate() - 1); // Set to one day less than today
+  var formattedMaxDate = today.toISOString().split('T')[0];
+  
+  document.getElementById('birthDateInput').setAttribute('max', formattedMaxDate);
+  document.getElementById('birthDateInput').setAttribute('min', formattedPastDate);
+</script>
+<!-- Add this script in your HTML file -->
+<script>
+  // Function to validate the student's birthdate
+  function validateBirthdate() {
+    var dobInput = document.getElementById('stu_dob').value;
+    var dob = new Date(dobInput);
+    var minBirthdate = new Date();
+    minBirthdate.setFullYear(minBirthdate.getFullYear() - 4); // Calculate 4 years ago
+
+    // Compare the selected birthdate with the minimum allowable birthdate
+    if (dob > minBirthdate) {
+      alert("The student's birthdate must be at least 4 years old.");
+      return false;
+    }
+
+    return true;
+  }
+
+  // Add event listener to the form submission to trigger the birthdate validation
+  document.getElementById('studentForm').addEventListener('submit', function(event) {
+    if (!validateBirthdate()) {
+      event.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+</script>
+
+
+
+
+<div>
+  <label>Enter Phone Number:</label>
+  <input type="text" class="form-control" name="phone" id="phoneInput" required>
+  <div id="phoneError" style="color: red;"></div> <!-- Error message will be displayed here -->
+</div>
+
+<script>
+  document.getElementById("phoneInput").addEventListener("input", function() {
+      var phoneInput = this.value.trim(); // Trim whitespace from the input
+      var phoneError = document.getElementById("phoneError");
+
+      // Remove any existing error message
+      phoneError.textContent = "";
+
+      // Check if the phone number has exactly 10 digits
+      if (phoneInput.length !== 10 || isNaN(phoneInput)) {
+          phoneError.textContent = "Please provide Valid phone number";
+      }
+  });
+</script>
+
+
+<script>
+  // Function to validate phone number
+  function validatePhoneNumber() {
+    var phoneNumber = document.getElementById('phoneInput').value.trim();
+    var phoneError = document.getElementById('phoneError');
+
+    // Remove any existing error message
+    phoneError.textContent = '';
+
+    // Check if the phone number contains exactly 10 digits
+    if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+      phoneError.textContent = 'Please provide Valid phone number';
+      return false;
+    }
+
+    return true;
+  }
+
+  // Add event listener to validate phone number on input change
+  document.getElementById('phoneInput').addEventListener('input', validatePhoneNumber);
+</script>
+
+
+  <div>
+    <label >Enter Academic Year:</label>
+    <input type="text" class="form-control"  name="a_year" value='2024-2025' required>
+  </div>
+
+
+
+  <div>
+    <label >Enter Fees:</label>
+    <input type="number" class="form-control"  name="fees" required>
+  </div>
+
+  <div>
+    <label >Select Fees Status:</label>
+      <input type="radio" id="gender" name="status" value="Paid" required>
+      <label for="status">Paid</label>
+      <input type="radio" id="status" name="status" value="Unpaid" required>
+      <label for="status">Unpaid</label><br>  
+  </div>
+
+<div>
+    <label >Select Gender:</label>
+      <input type="radio" id="gender" name="gender" value="Boy" required>
+      <label for="gender">Boy</label>
+      <input type="radio" id="gender" name="gender" value="Girl" required>
+      <label for="gender">Girl</label><br>  
+  </div>
+
+<div>
+    <label>Enter Address:</label>
+    <textarea name='address'required>{{qry.address}}</textarea>
+  </div>
+
+
+<div>
+  <label>select medium:</label>
+
+    <input type="radio" id="medium" name="medium" value="English" required >
+    <label for="medium">English</label>
+    <input type="radio" id="medium" name="medium" value="Gujarati" required>
+    <label for="medium">Gujarati</label><br>  
+ 
+</div>
+
+<div>
+select class:
+<select name='class' class="form-control">
+{%for i in cls%}
+<option value='{{i.id}}'>{{i.c_name}}</option>
+{%endfor%}
+</select>
+</div> 
+
+<div>
+                          select Parent:
+                          <select name='parent' class='form-control'>
+                            {%for i in parent%}
+                            <option value='{{i.id}}'>{{i.fname}} {{i.lname}}</option>
+                            {%endfor%}
+                          </select>
+                        </div>
+
+
+
+
+  
+  <input class="btn btn-outline-success m-3" type="submit" value="Add Student" name="submit">  
+</form>
+
+</main>
+</div>
+</body>
+</html>

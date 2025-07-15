@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Attendance</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        /* Custom CSS styles can be added here */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #ffcc00 !important;
+        }
+        .navbar-dark .navbar-toggler-icon {
+            color: #ffffff;
+        }
+        .container {
+            padding: 20px;
+        }
+        .heading h1 {
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        .student-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .student-image {
+            height: 280px;
+            width: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .student-details {
+            font-size: 1.2rem;
+            color: #343a40;
+            transition: all 0.3s ease;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+    </nav>
+    {% include "parent_sidebar.html" %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container">
+                <div class="heading" style="margin-top: 50px; margin-bottom: 35px;">
+                    <h1>Your Child's Basic Details</h1>
+                </div>
+                <ul>
+                    {% for i in students %}
+                        <div class="card p-3">
+                            <div class="dis">
+                                <div class="student-info">
+                                    <img src='/media/{{i.stu_img}}' class="student-image">
+                                    <div class="student-details">
+                                        <p><strong>Student Roll No:</strong> {{ i.roll_no }}</p>
+                                        <p><strong>Student Name:</strong> {{ i.fname }} {{ i.lname }}</p>
+                                        <p><strong>Date Of Birth:</strong> {{ i.dob }}</p>
+                                        <p><strong>Gender:</strong> {{ i.gender }}</p>
+                                        <p><strong>Address:</strong> {{ i.address }}</p>
+                                        <p><strong>Class Name:</strong> {{ i.cls_name }}</p>
+                                        <p><strong>Medium Name:</strong> {{ i.medium_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

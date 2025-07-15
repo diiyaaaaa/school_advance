@@ -1,0 +1,85 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Add Teacher</title>
+        <link href="/static/css/dash_styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+        {% include "admin_sidebar.html" %}
+
+<div id="layoutSidenav_content">
+                <main>            
+<div class="container p-5">
+<h3> Parent Details:</h3>
+                        <table style="border: 1px solid black; margin: auto; " class="table table-striped">
+                          <thead class="thead-dark">
+                          <tr>
+                              <th> First Name</th>
+                          <th> Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th> View </th>
+                          </tr>
+                          </thead>
+                          {%for i in parent%}
+                          <tr>
+                            <td>{{i.fname}}</td>
+                            <td>{{i.lname}}</td>      
+                            <td>{{i.email}}</td>
+                            <td>{{i.phone_no}}</td>
+                            <td><a href='/admin_view_parent/{{i.id}}' class='btn btn-success'> View</a> </td>
+                            
+
+                          </tr>
+                          {%endfor%}
+                        </table> <br> <br>
+
+                        <h3> Teacher Details:</h3>  
+              <table style="border: 1px solid black; margin: auto; " class="table table-striped">
+                          <thead class="thead-dark">
+                          <tr>
+                          <th> First Name</th>
+                          <th> Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Action</th>
+  
+                          </tr>
+                          </thead>
+                          {%for i in teacher%}
+                          <tr>
+                                  
+                            <td>{{i.fname}}</td>
+                            <td>{{i.lname}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.phone_no}}</td>
+                            <td><a href='/view_teacher/{{i.id}}' class='btn btn-success'> View</a> </td>
+                          
+                            
+
+                          </tr>
+                          {%endfor%}
+                        </table>
+
+                        </main>
+                        </div>
+
+
+</body>
+</html>

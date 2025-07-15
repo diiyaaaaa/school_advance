@@ -1,0 +1,36 @@
+
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+<h2> Gallery  Details:</h2>
+<div class="container" p-3>
+<table border='1px solid black'>
+<tr>
+<th>Sr no.</th>
+<th>Image </th>
+<th>Image name</th>
+<th>Image description</th>
+<th>Action</th>
+</tr>
+
+{%for i in qry%}
+<tr>
+<td>{{forloop.counter}}</td>
+<td><img src="/media/{{i.img}}" style="height:75px"></td>
+<td>{{i.img_name}}</td>
+<td>{{i.img_desc}}</td>
+<td>
+ <a href='/update_gallery/{{i.id}}' class='btn btn-success'>Update </a>
+ <a href='/delete_gallery/{{i.id}}' class='btn btn-danger'>Delete </a>
+ </td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</body>
+</html>

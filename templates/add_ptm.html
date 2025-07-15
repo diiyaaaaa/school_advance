@@ -1,0 +1,185 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Attendance</title>
+        <link href="/static/css/dash_styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+        {% include "teacher_sidebar.html" %}
+            <div id="layoutSidenav_content">
+                <main>
+
+        <div class="container p-5">
+
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+
+              
+        <form method="post" class="col-6 mx-auto card p-3  shadow-lg" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <h2>Add PTM</h2>
+            <hr>
+        <div>
+            <label >Enter topic of PTM:</label>
+           <input type="text" class="form-control"  name="topic" required>
+        </div>
+             
+           <div>
+               <label >Enter Description of PTM:</label>
+               <textarea name="desc" class="form-control" required></textarea>
+        </div>
+           
+        <div>
+            <label>Enter Date Of PTM:</label>
+            <input type="date" class="form-control" name="date" id="ptmDateInput" required>
+        </div>
+        
+        <script>
+            // Get today's date
+            var today = new Date();
+        
+            // Format today's date to YYYY-MM-DD
+            var formattedDate = today.toISOString().split('T')[0];
+        
+            // Set the min attribute of the input field to today's date
+            document.getElementById('ptmDateInput').setAttribute('min', formattedDate);
+        </script>
+        
+
+               
+        <div>
+            <label>Enter Time Of PTM:</label>
+            <input type="time" class="form-control" name="time" id="ptmTimeInput" required>
+            <div class="error-message" style="color: red; display: none;">Please enter a valid time between 09:00 AM and 03:00 PM.</div>
+        </div>
+        
+        <script>
+            var ptmTimeInput = document.getElementById('ptmTimeInput');
+        
+            ptmTimeInput.addEventListener('input', function() {
+                var time = this.value;
+                var errorDiv = this.parentElement.querySelector('.error-message');
+        
+                // Create Date object with the selected time
+                var selectedTime = new Date('2000-01-01T' + time);
+        
+                // Create Date objects for 09:00 AM and 03:00 PM
+                var startTime = new Date('2000-01-01T09:00');
+                var endTime = new Date('2000-01-01T15:00');
+        
+                // Check if selected time is between 09:00 AM and 03:00 PM
+                if (selectedTime < startTime || selectedTime > endTime) {
+                    errorDiv.style.display = 'block';
+                } else {
+                    errorDiv.style.display = 'none';
+                }
+            });
+        </script>
+        
+        
+             
+             
+             <div>
+                select medium:
+                <select name='medium' class='form-control'required>
+                <option>English</option>
+                <option>Gujarati</option>
+                </select>
+            </div>
+              
+            <div>
+              select class:
+              <select name='class' class='form-control'required>
+              {%for i in cls%}
+              <option value='{{i.id}}'>{{i.c_name}}</option>
+              {%endfor%}
+              </select>
+              </div>
+              <input class="btn btn-outline-primary" type="submit" value="Add PTM" name="add" style="margin-top: 10px; width:50%; margin-left:25%">
+            </form>
+        </div>
+
+        <h2> PTM  Details:</h2>
+                <div class="container p-3" >
+                <table style="border: 1px solid black; margin: auto; " class="table table-striped">
+                    <thead class="thead-dark">
+                <tr>
+                <th>Sr no.</th>
+                <th>Topic</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Medium name</th>
+                <th>Class Name</th>
+                <th>Action</th>
+                </tr>
+                </thead>
+
+                {%for i in qry%}
+                <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.topic}}</td>
+                <td>{{i.desc}}</td>
+                <td>{{i.ptm_date}}</td>
+                <td>{{i.ptm_time}}</td>
+                <td>{{i.medium_name}}</td>
+                <td>{{i.cls_name}}</td>
+                <td>
+                <a href='/update_ptm/{{i.id}}' class='btn btn-success'>Update </a>
+                <a href='/delete_ptm/{{i.id}}' class='btn btn-danger' onclick='return confirmDelete();'>Delete</a>
+
+                <script>
+                  function confirmDelete() {
+                    // Display a confirmation dialog
+                    var result = confirm("Are you sure you want to delete this PTM entry?");
+                
+                    // If the user confirms, return true to proceed with the deletion
+                    // If the user cancels, return false to prevent the deletion
+                    return result;
+                  }
+                </script>
+                
+                </td>
+                </tr>
+                {%endfor%}
+                </table>
+                </div>
+</div>
+
+</main>
+</div>
+   
+        
+    </body>
+
+</html>

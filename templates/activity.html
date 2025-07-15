@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+ 
+{% block content %} 
+<html> 
+<head> 
+    <title>Activity</title> 
+    <link rel="stylesheet" href="styles.css"> 
+</head> 
+<body> 
+<div class="heading" style="text-align: center;"> 
+<br> <br>
+<h1 style="color: #333; font-family: Arial, sans-serif; font-size: 36px; font-size: 175%; text-align: center;">Our Activities </h1> 
+     
+</div> 
+ 
+<div class="gallery-container"> 
+    {% for i in qry %} 
+    <div class="responsive"> 
+        <div class="gallery"> 
+            <img src="/media/{{i.act_img}}" alt="Activity Image" style="height: 225px;  width: 225px; margin-left: 25%;" /> 
+            <span style="font-size: medium; height: 10px; width: auto; margin-left: 0%; margin-top: 20px;">{{i.act_desc}}</span> 
+        </div> 
+    </div> 
+    {% endfor %} 
+</div> 
+ 
+<style> 
+    .gallery-container { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: space-around; 
+        padding: 20px; 
+    } 
+     
+    .responsive { 
+        flex: 1 0 calc(33.333% - 40px); /* Adjusting for 3 items per row with spacing */ 
+        margin: 20px; 
+        width: 250px; 
+        height: 300px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */ 
+        border: 1px solid #ddd; /* Border for definition */ 
+        border-radius: 5px; /* Rounded corners */ 
+        overflow: hidden; /* Ensures no overflow of content */ 
+    } 
+     
+    .gallery img { 
+        width: 200px; /* Ensure image fills container */ 
+        height: 200px; 
+         /* Maintain aspect ratio */ 
+        transition: transform 0.25s ease; /* Smooth transition for hover effect */ 
+    } 
+     
+    .gallery:hover img { 
+        transform: scale(1.03); /* Slight scale on hover for effect */ 
+    } 
+     
+    p { 
+        padding: 15px; 
+        margin: 0; 
+        text-align: center; 
+        color: #333; 
+        background-color: #f8554c; /* Slight background for the text area */ 
+    } 
+ 
+    @media only screen and (max-width: 700px) { 
+        .responsive { 
+            flex-basis: calc(50% - 40px); /* Adjusts to 2 items per row */ 
+        } 
+    } 
+ 
+    @media only screen and (max-width: 500px) { 
+        .responsive { 
+            flex-basis: 100%; /* Full width for very small screens */ 
+        } 
+    } 
+</style> 
+</body> 
+{% endblock content %}

@@ -1,0 +1,26 @@
+<html>
+<body>
+<table border='2px solid black'>
+<tr>
+<th> Lecture No. </th>
+<th> 
+Day
+ </th>
+ <th> Time</th>
+<th> Lecture </th>
+<th> Teacher </th>
+</tr>
+{%for i in timetable%}
+
+<tr>
+<td> {{forloop.counter}} </td>
+<td> {{i.day}} </td>
+<td> {{i.start_time}} to {{i.end_time}} </td>
+<td> {{i.sub}} </td>
+<td> {{i.teacher}} </td>
+</tr>
+
+{%endfor%}
+</table>
+</body>
+</html>

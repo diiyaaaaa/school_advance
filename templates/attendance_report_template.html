@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* Add your custom CSS styles here */
+        /* Example CSS for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+             .header img {
+            width: 720px; /* Adjust as needed */
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="header">
+        <img src="{{ school_logo }}" alt="School Logo">
+    </div>
+
+    <h1 style="font-size: 22px; text-align: center;">{{ title }}</h1>
+    <p style="font-size: 20px; text-align: center;">Month: {{ month }}</p>
+    <p style="font-size: 20px; text-align: center;">Year: {{ year }}</p>
+    <p style="font-size: 20px; text-align: center;">Date: {{ current_datetime }}</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="font-size: 14px;">Roll No</th>
+                <th style="font-size: 14px;">Name</th>
+                <th style="font-size: 14px;">Medium</th>
+                <th style="font-size: 14px;">Class</th>
+                <th style="font-size: 14px;">Present Days</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stats in attendance_stats %}
+                <tr>
+                    <td style="font-size: 14px;">{{ stats.roll_no }}</td>
+                    <td style="font-size: 14px;">{{ stats.name }}</td>
+                    <td style="font-size: 14px;">{{ stats.medium }}</td>
+                    <td style="font-size: 14px;">{{ stats.class_name }}</td>
+                    <td style="font-size: 14px;">{{ stats.present_days }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    </div>
+</body>
+</html>

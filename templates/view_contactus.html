@@ -1,0 +1,78 @@
+
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+ <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            
+            <!-- Navbar-->
+            
+        </nav>
+        {% include "admin_sidebar.html" %}
+<div class="p-5">
+      <div id="layoutSidenav_content">
+          <main>
+
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                      <div>
+                      
+                        <h1 style="text-align: center; margin-top: 25px; margin-bottom: 25px;">Details:</h1>
+                        <table style="border: 1px solid black; margin: auto; " class="table table-striped">
+                          <thead class="thead-dark">
+                          <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Subject </th>
+                            <th>Message</th>
+                            <th>Feedback</th>
+                          </tr>
+                          </thead>
+                          {%for i in qry%}
+                          <tr>
+                                  
+                            <td>{{i.name}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.number}}</td>
+                            <td>{{i.subject}}</td>
+                            <td>{{i.message}}</td>
+                            
+                            <td>
+                              <a href='/replay_contactus/{{i.id}}' class='btn btn-success'>Reply</a>
+                            </td>
+                          </tr>
+                          {%endfor%}
+                        </table>
+                      </div>
+
+                      </div>  
+             </main>
+             </div>         
+
+  </body>
+  </html>

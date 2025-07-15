@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Add Parent</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 20px;
+        }
+
+        .btn-outline-success {
+            border-radius: 20px;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .alert {
+            border-radius: 10px;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+       
+        <!-- Navbar-->
+        
+    </nav>
+    {% include "admin_sidebar.html" %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container">
+                <div class="alert alert-warning" role="alert">
+                    <strong>
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </strong> 
+                </div>
+                <form method="post" class="col-md-6 mx-auto card p-3 shadow-lg m-2">
+                    {% csrf_token %}
+                    <h1 class="text-center mb-4">Add Parent</h1>
+                    <hr>
+                    <div>
+                        <label>Enter First name:</label>
+                        <input type="text" class="form-control" id="firstNameInput" name="fname" value='{{qry.fname}}' required>
+                        <div id="firstNameError" style="color: red; display: none;">First name must be at least 2 characters long.</div>
+                      </div>
+                      
+                      <div>
+                        <label>Enter Last name:</label>
+                        <input type="text" class="form-control" id="lastNameInput" name="lname" value='{{qry.lname}}' required>
+                        <div id="lastNameError" style="color: red; display: none;">Last name must be at least 2 characters long.</div>
+                      </div>
+                      
+                      <script>
+                        document.getElementById('firstNameInput').addEventListener('input', function() {
+                            var firstNameInput = document.getElementById('firstNameInput').value;
+                            var firstNameError = document.getElementById('firstNameError');
+                      
+                            if (firstNameInput.length < 2) {
+                                firstNameError.style.display = 'block';
+                            } else {
+                                firstNameError.style.display = 'none';
+                            }
+                        });
+                      
+                        document.getElementById('lastNameInput').addEventListener('input', function() {
+                            var lastNameInput = document.getElementById('lastNameInput').value;
+                            var lastNameError = document.getElementById('lastNameError');
+                      
+                            if (lastNameInput.length < 2) {
+                                lastNameError.style.display = 'block';
+                            } else {
+                                lastNameError.style.display = 'none';
+                            }
+                        });
+                      </script>
+
+                      
+                    <div class="form-group">
+                        <label>Enter Email:</label>
+                        <input type="email" class="form-control" id="emailInput" name="email" value='{{qry.email}}' required>
+                        <div id="emailError" style="color: red; display: none;">Please enter a valid email address.</div>
+                    </div>
+                    
+                    <script>
+                        document.getElementById('emailInput').addEventListener('input', function() {
+                            var emailInput = document.getElementById('emailInput').value;
+                            var emailError = document.getElementById('emailError');
+                            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                            if (!emailPattern.test(emailInput)) {
+                                emailError.style.display = 'block';
+                            } else {
+                                emailError.style.display = 'none';
+                            }
+                        });
+                    </script>
+                    
+
+                    <div>
+  <label>Enter Phone Number:</label>
+  <input type="text" class="form-control" name="phone" id="phoneInput" required>
+  <div id="phoneError" style="color: red;"></div> <!-- Error message will be displayed here -->
+</div>
+
+<script>
+  // Function to validate phone number
+  function validatePhoneNumber() {
+    var phoneNumber = document.getElementById('phoneInput').value.trim();
+    var phoneError = document.getElementById('phoneError');
+
+    // Remove any existing error message
+    phoneError.textContent = '';
+
+    // Check if the phone number contains exactly 10 digits
+    if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+      phoneError.textContent = 'Phone number must be exactly 10 digits.';
+      return false;
+    }
+
+    return true;
+  }
+
+  // Add event listener to validate phone number on input change
+  document.getElementById('phoneInput').addEventListener('input', validatePhoneNumber);
+</script>
+
+                    <div class="form-group">
+                        <label for="year">Enter Year:</label>
+                        <input type="number" class="form-control" id="year" name="year" min="2023" max="2130" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-block">Add Parent</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

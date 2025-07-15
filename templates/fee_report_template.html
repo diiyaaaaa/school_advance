@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>{{ title }}</title>
+
+    <style>
+        /* Add your custom CSS styles here */
+        /* Example CSS for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .header img {
+            width: 720px; /* Adjust as needed */
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="{{ school_logo }}" alt="School Logo">
+    </div>
+
+    <br>
+    <h1 style="font-size: 22px; text-align: center; ">{{ title }}</h1>
+    <p style="font-size: 20px; text-align: center;">Date and Time of Report: {{ current_datetime }}</p>
+
+    <table border="1" class='table table-hover' style="font-size: 14px;">
+        <thead class='table-dark'>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Medium</th>
+                <th>Class</th>
+                <th>Fee</th>
+                <th>Fee Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fees_data %}
+            <tr>
+                <td>{{ fee.roll_no }}</td>
+                <td>{{ fee.fname }} {{ fee.lname }}</td>
+                <td>{{ fee.medium_name }}</td>
+                <td>{{ fee.cls_name }}</td>
+                <td>{{ fee.fee }}</td>
+                <td>{{ fee.fee_status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<html>
+<html lang="en">
+    {% extends "base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contactPage.css">
+    <script src="contactPage.js"></script>
+
+
+</head>
+<body>
+<div class="heading" style="margin-top: 25px;"> <br>
+    <div id="center">
+        <h1>Contact Us</h1>
+    </div>
+<div>
+
+
+<div class="row">
+<div class="col-xs-12">
+    <div id="left">
+
+        <div class="formbox">
+            <form method="post">
+            {% csrf_token %}
+                <input name="name" type="text" class="short" placeholder="Name" onfocus="this.placeholder=''" onblur="this.placeholder='Name'" style="width: 400px;" />
+                <input name="email" type="text" class="short" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'" style="width: 400px;" />
+                <input name="phone" type="text" class="short" placeholder="Phone Number" onfocus="this.placeholder=''" onblur="this.placeholder='Phone Number'" style="width: 400px;" />
+                <input name="subject" type="text" class="feedback-input" placeholder="Subject" onfocus="this.placeholder=''" onblur="this.placeholder='Subject'"/>
+                <textarea name="mess" class="feedback-input" placeholder="Message" onfocus="this.placeholder=''" onblur="this.placeholder='Message'"></textarea>
+                <input type="submit" value="SEND"/>
+            </form>
+        </div>
+
+        </div>
+
+    </div>
+
+     <br><br><br><br><br><br><br><br><br><br>
+    
+</div>
+
+<style> 
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgb(253, 253, 255);;
+}
+
+/* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+#map {
+    height: 100%;
+    align-content: left;
+    margin-right: 500px;
+}
+
+
+h1{
+    font-size: 60px;
+    text-align: center;
+    padding-top: 15px;
+    margin-left: 00px;
+    color: #000000;
+}
+
+/*Heading Shake Effect*/
+
+h1:hover {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+h6{
+    text-align: center;
+    color: #110801;
+}
+
+#left {
+    float: left;
+    width: 50%;
+    height: 700px;
+
+}
+#right {
+    display: inline-block;
+    position: absolute;
+    float: right;
+    width: 50%;
+    height: 700px;
+}
+#cleared {
+    clear: both;
+}
+
+
+ul{
+    list-style-type: none;
+}
+
+form { max-width:420px; margin:20px auto; }
+
+/*background: #13232f;*/
+
+.formbox{
+    background: transparent;
+    padding: 10px;
+    max-width:400px;
+    margin: 10px auto;
+    padding-left: 330px;
+    padding-bottom: 10px;
+    border-radius: 1px;
+    box-shadow:0 4px 10px 4px transparent;
+}
+
+.feamebox{
+    background: #d9d9d9;
+    width: auto;
+    border: 5px round rgb(7, 7, 7);
+    padding: 5px;
+    margin: 5px;
+    box-shadow:0 4px 10px 4px transparent;
+
+}
+
+form {
+    display: inline-block;
+}
+input.short{
+    width: 48%;
+    /*max-width: 48%; !* or whatever width you want. *!*/
+    color: rgb(12, 12, 12);
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight:500;
+    font-size: 18px;
+    border-radius: 5px;
+    line-height: 22px;
+    background-color: transparent;
+    border:2px solid #000000;
+    transition: all 0.3s;
+    padding: 13px;
+    margin-right: 6px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    outline:0;
+}
+
+
+
+#at{
+    color: #000000;
+
+}
+
+span{
+    text-align: right;
+    font-family:Helvetica, Neue, Helvetica, Arial, sans-serif;
+    font-weight:200;
+}
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: rgb(0, 0, 0);
+}
+
+.feedback-input {
+    color: rgb(0, 0, 0);
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight:500;
+    font-size: 18px;
+    border-radius: 5px;
+    line-height: 22px;
+    background-color: transparent;
+    border:2px solid #000000;
+    transition: all 0.3s;
+    padding: 13px;
+    margin-bottom: 15px;
+    width:99%;
+    box-sizing: border-box;
+    outline:0;
+}
+
+/*.feedback-input:focus {*/
+    /*border:2px solid #ffffff;*/
+/*}*/
+
+textarea {
+    height: 200px;
+    line-height: 150%;
+    resize:vertical;
+    margin-top: 5px;
+}
+
+[type="submit"] {
+    font-family: Helvetica, Arial, sans-serif;
+    width: 25%;
+    background: rgb(30,30,40);
+    border-radius:5px;
+    cursor:pointer;
+    color: #ffffff;
+    font-size:16px;
+    margin-left: 75%;
+    padding-top:10px;
+    padding-bottom:10px;
+    transition: all 0.1s;
+    margin-top: 10px;
+    border:3px solid #ffffff;
+    font-weight:500;
+
+}
+[type="submit"]:hover {
+    background: #fdfdfd;
+    color: #030303;
+    outline: 10 !important;
+}
+
+.writtenaddress {
+  border: 1px solid gray;
+  padding: 10px;
+  text-align: left;
+}
+
+.writtenaddress h4 {
+  margin: 10px;
+  line-height: 1;
+}
+
+#at {
+  margin-right: 5px;
+}
+
+
+@media all and (max-width:800px) {
+    #left, #right
+    {
+        display: block;
+        float: none;
+        width: 150%;
+    }
+}
+
+@media all and (max-width:800px) {
+    .short
+    {
+        min-width: 99%;
+
+    }
+}
+
+
+/*@media all and (max-width:800px) {*/
+    /*#map-overlap*/
+    /*{*/
+        /*text-align: center;*/
+        /*margin-left: -10px;*/
+        /*display: block;*/
+        /*width: 99%;*/
+    /*}*/
+/*}*/
+
+
+
+</style><br><br>
+{% endblock content %}
+
+
+</body>
+</html>

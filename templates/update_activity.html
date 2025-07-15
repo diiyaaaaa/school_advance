@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .container {
+            padding: 50px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .btn {
+            border-radius: 0;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .alert {
+            border-radius: 0;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+{% include "admin_sidebar.html" %}
+<body>
+<div class="container p-5" style="margin-top: 20px; margin-left: 15%;">
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+
+    <form method="post" class="col-md-6 mx-auto card p-3 shadow" style="margin-right: 25%;" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <h1 class="text-center mb-4">Update Activity</h1>
+
+        <div class="form-group">
+            <label>Enter Image Name:</label>
+            <input type="text" class="form-control" name="act_name" value='{{qry.act_name}}' required>
+        </div>
+
+        <div class="form-group">
+            <label>Select Image:</label>
+            <input type="file" class="form-control" name="act_img" value='{{qry.act_img}}' required>
+        </div>
+
+        <div class="form-group">
+            <label>Enter Image Description:</label>
+            <textarea class="form-control" name="act_desc" rows="4" required>{{qry.act_desc}}</textarea>
+        </div>
+
+
+        <div>
+            <label style="font-size: medium;">Select Month & Year:</label>
+            <input type="month" name="mon" class="form-control" id="monthYearInput" required>
+        </div>
+         
+        <script>
+            // Get today's date
+            var today = new Date();
+            var yyyy = today.getFullYear();
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        
+            // Set max attribute to the current month and year
+            var maxDate = yyyy + '-' + mm;
+            document.getElementById("monthYearInput").setAttribute("max", maxDate);
+        </script>
+        
+   
+        
+        <input class="btn btn-success btn-block" type="submit" value="Update" name="add" accept="image/*" style="margin-top: 10px;">
+    </form>
+</div>
+</body>
+</html>

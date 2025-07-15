@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Attendance</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed" style="font-family: Arial, sans-serif;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: #343a40;">
+        <a class="navbar-brand ps-3" href="#" style="color: #ffffff !important; font-weight: bold; font-size: 1.5rem; transition: all 0.3s ease;">The Smart Child</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" style="color: #ffffff;"><i class="fas fa-bars"></i></button>
+    </nav>
+    {% include "parent_sidebar.html" %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container" style="padding: 20px; background-color: #ffffff;">
+                <div class="p-5" style="text-align: center;">
+                    <h1 style="color: #343a40; font-weight: bold; margin-bottom: 30px; font-size: 2.5rem;">Attendance Of Student</h1>
+                    
+                    <form method="post" class="form-inline" style="margin-top: 8%">
+                      {% csrf_token %}
+                      <label for="date" class="mr-2" style="font-weight: bold; font-size: medium;">Select Date:</label>
+                       <br>
+                       <input type="date" name="date" class="form-control mr-2">
+                      <button type="submit" class="btn btn-outline-success">Submit</button>
+                  </form>
+                  
+                    <table class="table table-striped mt-4" style="border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="padding: 15px;">Date</th>
+                                <th style="padding: 15px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in attendance %}
+                            <tr>
+                                <td style="padding: 15px;">{{ i.date_of_attd }}</td>
+                                <td style="padding: 15px;">{{ i.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

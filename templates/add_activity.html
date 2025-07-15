@@ -1,0 +1,146 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Activity</title>
+        <link href="/static/css/dash_styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Smart Child</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+           
+            <!-- Navbar-->
+            
+        </nav>
+        {% include "admin_sidebar.html" %}
+
+<div id="layoutSidenav_content">
+                <main>            
+<div class="p-5">
+
+                                {% if messages %}
+
+  {% for message in messages %}
+    <div style="margin-bottom: 20px; padding: 15px; border-radius: 8px; color: #fff; background-color: #007bff;" class="alert alert-warning" role="alert">
+      {{ message }}
+      <span style="cursor: pointer; float: right; margin-left: 10px; font-weight: bold;" class="close-btn" onclick="this.parentElement.style.display='none';">X</span>
+      <h4></h4> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  function cancelMessage(){
+    document.querySelector(".alert").style.display ="none";
+  }
+</script>
+
+  
+<form method="post" class="col-6 mx-auto card p-3 shadow-lg" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <h1> Add Activity</h1>
+    <hr>
+    
+
+    <div>
+      <label style="font-size: medium;">Enter Activity Name:</label>
+      <input type="text" class="form-control" name="act_name" id="activityNameInput" required>
+      
+  </div>
+  
+  
+
+  <div>
+    <label style="font-size: medium; ">select Image:</label>
+    <input type="file" class="form-control"  name="act_img" required>
+  </div> 
+
+  <div>
+    <label style="font-size: medium;">Enter Image Description:</label>
+    <textarea name="act_desc" style="width: 100%;" required></textarea>
+</div>
+
+
+<div>
+  <label style="font-size: medium;">Select Month & Year:</label>
+  <input type="month" name="mon" class="form-control" id="monthYearInput" required>
+</div>
+
+<script>
+  // Get today's date
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+
+  // Set max attribute to the current month and year
+  var maxDate = yyyy + '-' + mm;
+  document.getElementById("monthYearInput").setAttribute("max", maxDate);
+</script>
+
+
+
+<script>
+    // Get current date
+    var currentDate = new Date();
+
+    // Format current date to YYYY-MM
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Adding 1 because getMonth() returns zero-based month
+
+    // Set max attribute of input to current month and year
+    document.getElementById('monthYearInput').setAttribute('max', currentYear + '-' + currentMonth);
+</script>
+
+
+  
+
+  <input class="btn btn-primary" type="submit" value="Add" name="add" accpet="image/*" style="width: 50%; margin-left: 25%; margin-top: 20px;" />
+ 
+</form>
+</div>
+<center>
+<h1 style="margin-top: 45px; margin-bottom: 25px;"> Activity  Details:</h1>
+<div class="container" p-3 my-2>
+<table style="border: 1px solid black; margin: auto;" class="table table-striped">
+                          <thead class="thead-dark">
+<tr>
+<th>Sr no.</th>
+<th>Image </th>
+<th>Image name</th>
+<th>Image description</th>
+<th>Month & year</th>
+<th>Action</th>
+</tr>
+</thead>
+
+{%for i in qry%}
+<tr>
+<td>{{forloop.counter}}</td>
+<td><img src="/media/{{i.act_img}}" style="height:100px"></td>
+<td >{{i.act_name}}</td>
+<td>{{i.act_desc}}</td>
+<td>{{i.date}}</td>
+<td>
+ <a href='/update_activity/{{i.id}}' class='btn btn-success'>Edit </a>
+ <a href='/delete_activity/{{i.id}}' class='btn btn-danger'>Delete </a>
+ </td>
+</tr>
+{%endfor%}
+</table>
+</div>
+</center>
+
+</main>
+</div>
+</body>
+</html>
